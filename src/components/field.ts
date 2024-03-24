@@ -2,7 +2,7 @@ export class Field {
     readonly gameCont: HTMLDivElement;
     readonly COLS: number;
     readonly ROWS: number;
-    content: string[][];
+    content: String[][];
 
     constructor(cols: number, rows: number) {
         this.COLS = cols;
@@ -26,6 +26,7 @@ export class Field {
     }
 
     drawField() {
+        this.gameCont.textContent = "";
         for (let i = 0; i < this.ROWS; i++) {
             for (let j = 0; j < this.COLS; j++)
                 this.gameCont.textContent += this.content[j][i] === undefined ?
