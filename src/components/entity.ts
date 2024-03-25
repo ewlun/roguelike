@@ -1,14 +1,14 @@
-import { Field } from "./field";
+import { Display } from "./display";
 
 export class Entity {
     symbol: string;
     xPos: number;
     yPos: number;
-    field: Field;
+    display: Display;
 
-    constructor(field: Field, symbol: string, xPos?: number, yPos?: number) {
+    constructor(display: Display, symbol: string, xPos?: number, yPos?: number) {
         this.symbol = symbol;
-        this.field = field;
+        this.display = display;
 
         if (xPos === undefined || yPos === undefined) {
             this.xPos = -1;
@@ -21,6 +21,6 @@ export class Entity {
     }
 
     place(s?: string) {
-        this.field.content[this.xPos][this.yPos] = s === undefined ? this.symbol : s;
+        this.display.content[this.xPos][this.yPos] = s === undefined ? this.symbol : s;
     }
 }

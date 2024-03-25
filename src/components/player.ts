@@ -1,10 +1,10 @@
-import { Field } from "./field";
-import { Entity } from "./entity";
+import { Display } from "./display.js";
+import { Entity } from "./entity.js";
 
 export class Player extends Entity {
 
-    constructor(field: Field) {
-        super(field, "@", 0, 0);
+    constructor(display: Display) {
+        super(display, "@", 0, 0);
     }
 
     move(x: number, y: number) {

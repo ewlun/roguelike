@@ -1,15 +1,17 @@
-import { Field, Player } from "./components/index.js";
+import { Display, Player, Level } from "./components/index.js";
 
-let field = new Field(50, 15);
+let display = new Display(50, 15);
 
-let player = new Player(field)
+let level = new Level(70, 70);
+
+let player = new Player(display)
 
 player.xPos = 1;
 player.yPos = 1;
 
 player.place();
 
-field.drawField();
+display.render(level.subset(0, 0, 20, 10));
 
 
 document.addEventListener("keydown", (e) => {
@@ -48,5 +50,5 @@ document.addEventListener("keydown", (e) => {
 
     player.move(moveX, moveY);
 
-    field.drawField();
+    display.render(level.map);
 })

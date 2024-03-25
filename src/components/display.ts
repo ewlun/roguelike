@@ -1,4 +1,4 @@
-export class Field {
+export class Display {
     readonly gameCont: HTMLDivElement;
     readonly COLS: number;
     readonly ROWS: number;
@@ -25,12 +25,14 @@ export class Field {
         this.gameCont.style.padding = "0";
     }
 
-    drawField() {
+    render(subset: string[][]) {
         this.gameCont.textContent = "";
         for (let i = 0; i < this.ROWS; i++) {
-            for (let j = 0; j < this.COLS; j++)
-                this.gameCont.textContent += this.content[j][i] === undefined ?
-                    "." : this.content[j][i];
+            for (let j = 0; j < this.COLS; j++) {
+                if (j < subset.length && subset[j][i] !== undefined)
+                    this.gameCont.textContent += subset[j][i];
+                else this.gameCont.textContent += ".";
+            }
         }
     }
 }
