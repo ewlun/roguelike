@@ -1,13 +1,13 @@
-import { Display, Player, Level } from "./components/index.js";
+import { Display, Level } from "./components/index.js";
 
 let display = new Display(50, 15);
 
 let level = new Level(70, 70);
 
-let player = new Player(display)
+// let player = new Player(display)
 
-player.xPos = 1;
-player.yPos = 1;
+// player.xPos = 1;
+// player.yPos = 1;
 
 // player.place();
 

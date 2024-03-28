@@ -1,26 +1,12 @@
-import { Display } from "./display";
+import { Tile } from "./tile.js";
 
-export class Entity {
-    symbol: string;
-    xPos: number;
-    yPos: number;
-    display: Display;
+export class Entity extends Tile {
 
-    constructor(display: Display, symbol: string, xPos?: number, yPos?: number) {
-        this.symbol = symbol;
-        this.display = display;
-
-        if (xPos === undefined || yPos === undefined) {
-            this.xPos = -1;
-            this.yPos = -1;
-        }
-        else {
-            this.xPos = xPos;
-            this.yPos = yPos;
-        }
+    constructor(symbol: string) {
+        super(symbol);
     }
 
-    place(s?: string) {
-        this.display.content[this.xPos][this.yPos] = s === undefined ? this.symbol : s;
+    update() {
+
     }
 }

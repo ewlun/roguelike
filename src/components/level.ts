@@ -1,5 +1,6 @@
+import { Tile } from "./tile.js";
 export class Level {
-    map: string[][];
+    map: Tile[][];
     readonly HEIGHT: number;
     readonly WIDTH: number;
 
@@ -12,11 +13,11 @@ export class Level {
             this.map.push(new Array(this.WIDTH));
         }
 
-        this.map.map((x, i) => { x.fill(i.toString()[0]) })
+        this.map.map((x, i) => { x.fill(new Tile(i.toString()[0])) })
     }
 
     subset(x1: number, y1: number, x2: number, y2: number) {
-        let result: string[][] = [];
+        let result: Tile[][] = [];
         for (let i = x1; i < x2; i++) {
             result.push(this.map[i].slice(y1, y2));
         }

@@ -1,3 +1,4 @@
+import { Tile } from "./tile.js";
 export class Display {
     readonly gameCont: HTMLDivElement;
     readonly COLS: number;
@@ -18,7 +19,7 @@ export class Display {
         this.gameCont.style.fontFamily = "monospace";
 
         this.gameCont.style.width = this.COLS.toString() + "ch";
-        this.gameCont.style.height = (this.ROWS * 2.1428).toString() + "ch"; // Typsnittet är 15/7 ggr längre än det är brett
+        this.gameCont.style.height = (this.ROWS * 2.0909).toString() + "ch"; // Typsnittet är 23/11 ggr längre än det är brett
 
         this.gameCont.style.overflowWrap = "anywhere";
         this.gameCont.style.overflow = "hidden";
@@ -27,7 +28,7 @@ export class Display {
         this.gameCont.textContent = ".".repeat(this.COLS * this.ROWS);
     }
 
-    render(subset: string[][], x?: number, y?: number) {
+    render(subset: Tile[][], x?: number, y?: number) {
         let transparent = true;
         if (x === undefined || y === undefined) {
             transparent = false;
@@ -41,7 +42,7 @@ export class Display {
             for (let j = 0; j < this.COLS; j++) {
                 if (j - x < subset.length && j - x >= 0 && subset[j - x][i - y] !== undefined
                     && j >= x && i >= y) {
-                    text[it] = subset[j - x][i - y];
+                    text[it] = subset[j - x][i - y].symbol;
                 }
                 else text[it] = transparent ? text[it] : ".";
                 it++;
