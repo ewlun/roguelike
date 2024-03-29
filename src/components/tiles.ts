@@ -33,6 +33,6 @@ export class Wall extends Tile {
 
 export class Path extends Tile {
     constructor() {
-        super("▒", false);
+        super("▒", true);
     }
 }

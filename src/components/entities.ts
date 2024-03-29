@@ -1,16 +1,20 @@
+import { Level } from "./level.js";
 import { Tile } from "./tiles.js";
 
 export class Entity extends Tile {
-    standingOn: Tile | undefined;
+    level: Level;
+    standingOn: Tile;
     xPos: number;
     yPos: number;
 
-    constructor(symbol: string) {
+    constructor(symbol: string, level: Level, x: number, y: number) {
         super(symbol, false);
-        this.standingOn = undefined;
+        this.level = level;
+        this.standingOn = this.level.map[y][x];
+        this.xPos = x;
+        this.yPos = y;
 
-        this.xPos = -1;
-        this.yPos = -1;
+        if (this.level.map[y][x].passable) this.level.map[y][x] = this;
     }
 
     update() {
@@ -18,9 +22,21 @@ export class Entity extends Tile {
     }
 }
 
-class Player extends Entity {
-    constructor() {
-        super("@");
+export class Player extends Entity {
+    constructor(level: Level, x: number, y: number) {
+        super("@", level, x, y);
     }
 
+    move(x: number, y: number) {
+        let newTile = this.level.map[this.yPos + y][this.xPos + x];
+        if (newTile.passable) {
+            let stand = newTile;
+            this.level.map[this.yPos + y][this.xPos + x] = this;
+            this.level.map[this.yPos][this.xPos] = this.standingOn;
+            this.standingOn = stand;
+            this.xPos += x;
+            this.yPos += y;
+        }
+
+    }
 }
