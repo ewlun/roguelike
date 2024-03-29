@@ -11,7 +11,7 @@ let level = new Level(70, 70);
 
 // player.place();
 
-display.render(level.subset(0, 0, 40, 16));
+display.render(level.subset(0, 0, 51, 16));
 display.render(level.subset(0, 0, 15, 10), 15, 3);
 
 

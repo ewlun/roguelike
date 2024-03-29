@@ -1,4 +1,4 @@
 export * from './display.js'
-export * from './entity.js'
-export * from './tile.js'
+export * from './entities.js'
+export * from './tiles.js'
 export * from './level.js'

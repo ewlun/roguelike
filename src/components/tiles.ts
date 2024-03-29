@@ -10,3 +10,9 @@ export class Tile {
         this.color = color === undefined ? "#00000" : color;
     }
 }
+
+export class EmptyTile extends Tile {
+    constructor() {
+        super(".");
+    }
+}

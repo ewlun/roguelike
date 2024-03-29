@@ -1,4 +1,4 @@
-import { Tile } from "./tile.js";
+import { Tile } from "./tiles.js";
 export class Level {
     map: Tile[][];
     readonly HEIGHT: number;
