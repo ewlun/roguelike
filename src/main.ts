@@ -1,8 +1,8 @@
 import { Display, Level } from "./components/index.js";
 
-let display = new Display(50, 15);
+let display = new Display(40, 15);
 
-let level = new Level(70, 70);
+let level = new Level(40, 15);
 
 // let player = new Player(display)
 
@@ -11,8 +11,8 @@ let level = new Level(70, 70);
 
 // player.place();
 
-display.render(level.subset(0, 0, 51, 16));
-display.render(level.subset(0, 0, 15, 10), 15, 3);
+// display.render(level.subset(0, 0, 51, 16));
+display.render(level.subset(0, 0, 40, 15));
 
 
 // document.addEventListener("keydown", (e) => {

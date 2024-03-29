@@ -1,4 +1,4 @@
-import { Tile } from "./tiles.js";
+import { EmptyTile, Path, Tile, UnknownTile, Wall } from "./tiles.js";
 export class Level {
     map: Tile[][];
     readonly HEIGHT: number;
@@ -9,24 +9,51 @@ export class Level {
         this.WIDTH = width;
 
         this.map = new Array();
-        for (let i = 0; i < this.HEIGHT; i++) {
-            this.map.push(new Array(this.WIDTH));
+        for (let i = 0; i < this.WIDTH; i++) {
+            this.map.push(new Array(this.HEIGHT));
         }
 
-        this.map.map((x, i) => { x.fill(new Tile(i.toString()[0])) })
+        const level =
+            `........................................
+........................................
+....##########..........................
+....#,,,,,,,,#..........................
+....#,,,,,,,,---------..................
+....##########.......-..................
+.....................-..................
+.....................-..................
+............#########-#########.........
+............#,,,,,,,,,,,,,,,,,#.........
+............#,,,,,,,,,,,,,,,,,#.........
+............#,,,,,,,,,,,,,,,,,#.........
+............###################.........
+........................................
+........................................`;
+
+        // this.map.map((x, i) => { x.fill(new Tile(i.toString()[0])) })
+
+        this.map.forEach((element, index) => {
+            for (let i = 0; i < 40; i++) {
+                let char = level[i + index * 41];
+                if (char === ",")
+                    element[i] = new EmptyTile();
+                else if (char === "#") element[i] = new Wall();
+                else if (char === "-") element[i] = new Path();
+                else element[i] = new UnknownTile();
+            }
+        });
+
+        console.log(this.map)
     }
 
     subset(x1: number, y1: number, x2: number, y2: number) {
         let result: Tile[][] = [];
-        for (let i = x1; i < x2; i++) {
-            result.push(this.map[i].slice(y1, y2));
+        for (let i = y1; i < y2; i++) {
+            result.push(this.map[i].slice(x1, x2));
         }
         return result;
     }
 }
 
 
-/**
- *    [[".00ff00", "x", "@ff0000"]]
- * 
- */
+

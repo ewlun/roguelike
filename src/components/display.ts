@@ -28,16 +28,16 @@ export class Display {
 
     render(subset: Tile[][], x = 0, y = 0) {
         this.ctx.clearRect(x * this.fontWidth, y * this.fontHeight,
-            subset.length * this.fontWidth, subset[0].length * this.fontHeight);
+            this.width, this.height);
 
-        for (let i = 0; i < subset[0].length; i++) {
+        for (let i = 0; i < subset.length; i++) {
             if (i > this.ROWS) break
-            let string = "";
-            for (let j = 0; j < subset.length; j++) {
-                if (j > this.COLS) break;
-                else string += subset[j][i].symbol;
+            for (let j = 0; j < subset[i].length; j++) {
+                this.ctx.fillStyle = subset[i][j].color;
+                this.ctx.fillText(subset[i][j].symbol, (x + j) * this.fontHeight * 0.6,
+                    (i + y + 1) * this.fontHeight);
             }
-            this.ctx.fillText(string, x * this.fontHeight * 0.6, (i + y + 1) * this.fontHeight);
+            // let string = subset[i].map((e) => { return e.symbol }).join('');
         }
 
     }
