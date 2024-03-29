@@ -1,54 +1,44 @@
 import { Tile } from "./tile.js";
+
 export class Display {
-    readonly gameCont: HTMLDivElement;
+    readonly canvasElement: HTMLCanvasElement;
+    readonly ctx: CanvasRenderingContext2D;
     readonly COLS: number;
     readonly ROWS: number;
-    content: String[][];
+    readonly width: number;
+    readonly height: number;
+    fontHeight: number;
+    fontWidth: number;
+
 
     constructor(cols: number, rows: number) {
         this.COLS = cols;
         this.ROWS = rows;
+        this.fontHeight = 20;
+        this.fontWidth = this.fontHeight * 0.6;
 
-        this.content = new Array();
-        for (let i = 0; i < this.COLS; i++) {
-            this.content.push(new Array(this.ROWS));
-        }
+        this.canvasElement = document.querySelector('.game') as HTMLCanvasElement;
 
-        this.gameCont = document.querySelector('.game') as HTMLDivElement;
+        this.width = this.canvasElement.width = this.COLS * this.fontWidth;
+        this.height = this.canvasElement.height = this.ROWS * this.fontHeight;
 
-        this.gameCont.style.fontFamily = "monospace";
-
-        this.gameCont.style.width = this.COLS.toString() + "ch";
-        this.gameCont.style.height = (this.ROWS * 2.0909).toString() + "ch"; // Typsnittet är 23/11 ggr längre än det är brett
-
-        this.gameCont.style.overflowWrap = "anywhere";
-        this.gameCont.style.overflow = "hidden";
-        this.gameCont.style.padding = "0";
-
-        this.gameCont.textContent = ".".repeat(this.COLS * this.ROWS);
+        this.ctx = this.canvasElement.getContext('2d')!;
+        this.ctx.font = `${this.fontHeight}px Courier New`;
     }
 
-    render(subset: Tile[][], x?: number, y?: number) {
-        let transparent = true;
-        if (x === undefined || y === undefined) {
-            transparent = false;
-            x = 0;
-            y = 0;
-        }
+    render(subset: Tile[][], x = 0, y = 0) {
+        this.ctx.clearRect(x * this.fontWidth, y * this.fontHeight,
+            subset.length * this.fontWidth, subset[0].length * this.fontHeight);
 
-        let text = this.gameCont.textContent!.split("");
-        let it = 0;
-        for (let i = 0; i < this.ROWS; i++) {
-            for (let j = 0; j < this.COLS; j++) {
-                if (j - x < subset.length && j - x >= 0 && subset[j - x][i - y] !== undefined
-                    && j >= x && i >= y) {
-                    text[it] = subset[j - x][i - y].symbol;
-                }
-                else text[it] = transparent ? text[it] : ".";
-                it++;
+        for (let i = 0; i < subset[0].length; i++) {
+            if (i > this.ROWS) break
+            let string = "";
+            for (let j = 0; j < subset.length; j++) {
+                if (j > this.COLS) break;
+                else string += subset[j][i].symbol;
             }
+            this.ctx.fillText(string, x * this.fontHeight * 0.6, (i + y + 1) * this.fontHeight);
         }
 
-        this.gameCont.textContent = text.join("");
     }
 }

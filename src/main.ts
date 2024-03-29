@@ -11,8 +11,8 @@ let level = new Level(70, 70);
 
 // player.place();
 
-display.render(level.subset(0, 0, 40, 15), 0, 0);
-display.render(level.subset(0, 0, 10, 15), 40, 0);
+display.render(level.subset(0, 0, 40, 16));
+display.render(level.subset(0, 0, 15, 10), 15, 3);
 
 
 // document.addEventListener("keydown", (e) => {
