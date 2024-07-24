@@ -1,7 +1,11 @@
 import {Game} from "./components/index.js";
 
-let game = new Game(60, 25, "hey");
+declare global {
+    let game: Game;
+}
 
-game.display.render(game.currentLevel.map)
+game = new Game(60, 25);
+
+game.drawLevel();
 
 document.addEventListener("keydown", (e) => game.handleInput(e))

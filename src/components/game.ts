@@ -1,7 +1,7 @@
 import { Display } from "./display";
 import { Player } from "./entities";
 import { Level } from "./level";
-import { DownStair, UpStair } from "./tiles";
+import { DownStair, Tile, UpStair } from "./tiles";
 
 export class Game {
     readonly WIDTH: number;
@@ -91,11 +91,32 @@ export class Game {
         
             if (moveX !== 0 || moveY !== 0) this.player.move(moveX, moveY);
         
-            this.display.render(this.currentLevel.map);
+            this.drawLevel()
     }
 
-    newLevel(): void {
+    drawLevel(): void {
+        this.display.render(this.currentLevel.map);
+    }
 
+    drawMessageBox(message: string, x: number, y: number): void {
+        let chars = message.split('');
+        let splitArr = message.split('\n');
+        let cols = Math.max(...(splitArr.map(el => el.length)));
+
+        let box: Tile[][] = new Array();
+        let rows = chars.filter((x) => x === "\n").length;
+
+        for(let i = 0; i <= rows; i++) {
+            box.push(new Array<Tile>(cols));
+        }
+        
+        splitArr.forEach((row, index) => {
+            for(let i = 0; i < row.length; i++) {
+                box[index][i] = new Tile(row[i], false);
+            }
+        });
+        
+        this.display.render(box, x, y);
     }
 
     random(): number {

@@ -27,15 +27,20 @@ export class Display {
     }
 
     render(subset: Tile[][], x = 0, y = 0) {
-        this.ctx.clearRect(x * this.fontWidth, y * this.fontHeight,
+        this.ctx.fillStyle = "#000000"
+        if(x === 0) 
+        this.ctx.fillRect(x * this.fontWidth, y * this.fontHeight,
             this.width, this.height);
+        else  this.ctx.fillRect(x * this.fontWidth, y * this.fontHeight,
+            this.fontWidth*subset[0].length, this.fontHeight*subset.length);
 
         for (let i = 0; i < subset.length; i++) {
             if (i > this.ROWS) break
             for (let j = 0; j < subset[i].length; j++) {
-                this.ctx.fillStyle = subset[i][j].color;
-                this.ctx.fillText(subset[i][j].symbol, (x + j) * this.fontHeight * 0.6,
-                    (i + y + 1) * this.fontHeight);
+                this.ctx.fillStyle = subset[i][j] !== undefined ? subset[i][j].color : "#000000";
+                
+                this.ctx.fillText(subset[i][j] !== undefined ? subset[i][j].symbol : " ", 
+                    (x + j) * this.fontHeight * 0.6, (i + y + 1) * this.fontHeight);
             }
         }
 
