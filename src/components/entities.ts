@@ -1,5 +1,5 @@
 import { Level } from "./level.js";
-import { Tile } from "./tiles.js";
+import { Tile, HexColor } from "./tiles.js";
 
 export class Entity extends Tile {
     level: Level;
@@ -7,8 +7,11 @@ export class Entity extends Tile {
     xPos: number;
     yPos: number;
 
-    constructor(symbol: string, level: Level, x: number, y: number) {
-        super(symbol, false);
+    constructor(symbol: string, level: Level, x: number, y: number, color?: HexColor) {
+        if (color)
+            super(symbol, false, color);
+        else super(symbol, false);
+        
         this.level = level;
         this.standingOn = this.level.map[y][x];
         this.xPos = x;

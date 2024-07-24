@@ -37,7 +37,6 @@ export class Display {
                 this.ctx.fillText(subset[i][j].symbol, (x + j) * this.fontHeight * 0.6,
                     (i + y + 1) * this.fontHeight);
             }
-            // let string = subset[i].map((e) => { return e.symbol }).join('');
         }
 
     }

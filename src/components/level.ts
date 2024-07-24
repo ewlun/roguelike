@@ -4,13 +4,13 @@ export class Level {
     readonly HEIGHT: number;
     readonly WIDTH: number;
 
-    constructor(height: number, width: number) {
+    constructor(width: number, height: number) {
         this.HEIGHT = height;
         this.WIDTH = width;
 
         this.map = new Array();
-        for (let i = 0; i < this.WIDTH; i++) {
-            this.map.push(new Array(this.HEIGHT));
+        for (let i = 0; i < this.HEIGHT; i++) {
+            this.map.push(new Array(this.WIDTH));
         }
 
         const level =
@@ -30,7 +30,7 @@ export class Level {
 ........................................
 ........................................`;
 
-        // this.map.map((x, i) => { x.fill(new Tile(i.toString()[0])) })
+        // this.map.map((x, i) => { x.fill(new EmptyTile()) })
 
         this.map.forEach((element, index) => {
             for (let i = 0; i < 40; i++) {
@@ -43,7 +43,13 @@ export class Level {
             }
         });
 
-        console.log(this.map)
+        // let randX = Math.floor(Math.random() * (this.WIDTH));
+        // let randY = Math.floor(Math.random() * (this.HEIGHT));
+
+        // console.log(randY, randX)
+        // for()
+        // this.map[randY][randX] = new Wall();
+
     }
 
     subset(x1: number, y1: number, x2: number, y2: number) {

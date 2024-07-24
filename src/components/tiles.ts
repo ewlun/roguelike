@@ -1,4 +1,4 @@
-type HexColor = `#${string}`
+export type HexColor = `#${string}`
 
 export class Tile {
     symbol: string;
@@ -9,13 +9,13 @@ export class Tile {
         this.symbol = symbol;
         this.passable = passable;
 
-        this.color = color === undefined ? "#000000" : color;
+        this.color = color === undefined ? "#CCCCCC" : color;
     }
 }
 
 export class EmptyTile extends Tile {
     constructor() {
-        super(".", true, "#888888");
+        super(".", true, "#999999");
     }
 }
 
