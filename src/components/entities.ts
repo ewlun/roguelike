@@ -20,16 +20,6 @@ export class Entity extends Tile {
         if (this.level.map[y][x].passable) this.level.map[y][x] = this;
     }
 
-    update() {
-
-    }
-}
-
-export class Player extends Entity {
-    constructor(level: Level, x: number, y: number) {
-        super("@", level, x, y);
-    }
-
     move(x: number, y: number) {
         let newTile = this.level.map[this.yPos + y][this.xPos + x];
         if (newTile.passable) {
@@ -40,6 +30,17 @@ export class Player extends Entity {
             this.xPos += x;
             this.yPos += y;
         }
+    
+    }
+    
+    update() {
 
     }
+}
+
+export class Player extends Entity {
+    constructor(level: Level, x: number, y: number) {
+        super("@", level, x, y);
+    }
+
 }
