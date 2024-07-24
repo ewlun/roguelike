@@ -32,6 +32,22 @@ export class Entity extends Tile {
         }
     
     }
+
+    goTo(x: number, y: number, level?: Level) {
+        if(level === undefined)
+            level = this.level;
+        let newTile = level.map[y][x];
+        if (newTile.passable) {
+            let stand = newTile;
+            level.map[y][x] = this;
+            this.level.map[this.yPos][this.xPos] = this.standingOn;
+            this.standingOn = stand;
+            this.xPos = x;
+            this.yPos = y;
+            this.level = level
+        }
+    
+    }
     
     update() {
 

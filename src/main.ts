@@ -1,7 +1,7 @@
-import { Display, Game, Level, Player } from "./components/index.js";
+import {Game} from "./components/index.js";
 
-let game = new Game(60, 25, "hello world");
+let game = new Game(60, 25, "hey");
 
-game.display.render(game.startLevel.map)
+game.display.render(game.currentLevel.map)
 
-document.addEventListener("keydown", (e) => game.takeInput(e))
+document.addEventListener("keydown", (e) => game.handleInput(e))

@@ -25,6 +25,18 @@ export class UnknownTile extends Tile {
     }
 }
 
+export class UpStair extends Tile {
+    constructor() {
+        super("<", true);
+    }
+}
+
+export class DownStair extends Tile {
+    constructor() {
+        super(">", true);
+    }
+}
+
 export class Wall extends Tile {
     constructor() {
         super("#", false);

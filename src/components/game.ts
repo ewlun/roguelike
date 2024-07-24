@@ -1,16 +1,22 @@
 import { Display } from "./display";
 import { Player } from "./entities";
 import { Level } from "./level";
+import { DownStair, UpStair } from "./tiles";
 
 export class Game {
+    readonly WIDTH: number;
+    readonly HEIGHT: number;
     seed: number;
     turn: number;
     display: Display
-    startLevel: Level;
+    currentLevel: Level;
     levels: Level[];
     player: Player
     
     constructor(w: number, h: number, seed?: string) {
+        this.WIDTH = w;
+        this.HEIGHT = h;
+
         if(seed !== undefined) {
             this.seed = this.cyrb128(seed)[0];
         } 
@@ -20,14 +26,14 @@ export class Game {
 
         this.display = new Display(w, h)
         
-        this.startLevel = new Level(this, this.display.COLS, this.display.ROWS);
-        this.startLevel.generateRandomWalk();
-        this.levels = [this.startLevel];
+        this.levels = [new Level(this, this.display.COLS, this.display.ROWS)];
+        this.currentLevel = this.levels[0];
+        this.currentLevel.generateRandomWalk();
         
-        this.player = new Player(this.startLevel, ...this.startLevel.startPos);
+        this.player = new Player(this.currentLevel, ...this.currentLevel.startPos);
     }
 
-    takeInput(e: KeyboardEvent): void {
+    handleInput(e: KeyboardEvent): void {
             let moveX = 0;
             let moveY = 0;
             switch (e.key) {
@@ -59,11 +65,33 @@ export class Game {
                     moveY = 1;
                     moveX = -1;
                     break;
+                case ">":
+                    if(this.player.standingOn instanceof DownStair) {
+                        if(this.levels.at(-1) === this.currentLevel) {
+                            this.levels.push(new Level(this, this.WIDTH, this.HEIGHT))
+                            this.currentLevel = this.levels.at(-1)!;
+                            this.currentLevel.generateRandomWalk();
+                            this.player.goTo(...this.currentLevel.startPos, this.currentLevel);
+                        }
+                        else {
+                            let index = this.levels.indexOf(this.currentLevel) + 1;
+                            this.currentLevel = this.levels[index];
+                            this.player.goTo(...this.currentLevel.startPos, this.currentLevel);
+                        }
+                    }
+                    break;
+                case "<":
+                    if(this.player.standingOn instanceof UpStair) {
+                        let index = this.levels.indexOf(this.currentLevel) - 1;
+                        this.currentLevel = this.levels[index];
+                        this.player.goTo(...this.currentLevel.endPos, this.currentLevel);
+                    }
+                    break;
             }
         
             if (moveX !== 0 || moveY !== 0) this.player.move(moveX, moveY);
         
-            this.display.render(this.startLevel.map);
+            this.display.render(this.currentLevel.map);
     }
 
     newLevel(): void {

@@ -1,9 +1,10 @@
 import { Game } from "./game.js";
-import { EmptyTile, Path, Tile, UnknownTile, Wall } from "./tiles.js";
+import { DownStair, EmptyTile, Path, Tile, UnknownTile, UpStair, Wall } from "./tiles.js";
 
 export class Level {
     map: Tile[][];
     startPos: [number, number];
+    endPos: [number, number];
     readonly HEIGHT: number;
     readonly WIDTH: number;
     private game: Game;
@@ -13,13 +14,14 @@ export class Level {
         this.HEIGHT = height;
         this.WIDTH = width;
         this.startPos = [0,0];
+        this.endPos = [0,0];
 
         this.map = new Array();
         for (let i = 0; i < this.HEIGHT; i++) {
             this.map.push(new Array(this.WIDTH));
         }
 
-        this.map.map((x, i) => { x.fill(new EmptyTile()) });
+        this.map.map((x) => { x.fill(new EmptyTile()) });
     }
 
     generateRandomWalk(): void {
@@ -29,16 +31,16 @@ export class Level {
         let posY = Math.floor(this.game.random() * this.HEIGHT);
         this.startPos = [posX, posY];
 
-        this.map[posY][posX] = new EmptyTile();
+        this.map[posY][posX] = new UpStair();
 
         let tiles = 0;
+        const directions = [[1,0],[-1,0], [0,1],[0,-1]];
         
         while(tiles < this.HEIGHT * this.WIDTH * 0.5) {
-            let ranX = Math.floor(this.game.random() * 3) - 1;
-            let ranY = Math.floor(this.game.random() * 3) - 1;
+            let rand = directions[Math.floor(this.game.random() * 4)];
             
-            posX += ranX + posX >= this.WIDTH || ranX + posX < 0 ? -ranX : ranX
-            posY += ranY + posY >= this.HEIGHT || ranY + posY < 0 ? -ranY : ranY
+            posX += rand[0] + posX >= this.WIDTH || rand[0] + posX < 0 ? -rand[0] : rand[0]
+            posY += rand[1] + posY >= this.HEIGHT || rand[1] + posY < 0 ? -rand[1] : rand[1]
             
             if(this.map[posY][posX] instanceof Wall) {
                 this.map[posY][posX] = new EmptyTile();
@@ -46,6 +48,8 @@ export class Level {
             }
         }
 
+    this.map[posY][posX] = new DownStair();
+    this.endPos = [posX, posY];
     }
 
     generateTestLevel(): void {
