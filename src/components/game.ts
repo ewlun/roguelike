@@ -87,11 +87,17 @@ export class Game {
                         this.player.goTo(...this.currentLevel.endPos, this.currentLevel);
                     }
                     break;
+
+                default:
+                    return;
             }
         
             if (moveX !== 0 || moveY !== 0) this.player.move(moveX, moveY);
         
-            this.drawLevel()
+            this.currentLevel.entities.forEach(entity => {
+                entity.update();
+            });
+            this.drawLevel();
     }
 
     drawLevel(): void {

@@ -1,13 +1,15 @@
+import { Dummy, Entity } from "./entities.js";
 import { Game } from "./game.js";
 import { DownStair, EmptyTile, Path, Tile, UnknownTile, UpStair, Wall } from "./tiles.js";
 
 export class Level {
+    private game: Game;
+    readonly HEIGHT: number;
+    readonly WIDTH: number;
     map: Tile[][];
     startPos: [number, number];
     endPos: [number, number];
-    readonly HEIGHT: number;
-    readonly WIDTH: number;
-    private game: Game;
+    entities: Entity[];
 
     constructor(game: Game, width: number, height: number) {
         this.game = game;
@@ -15,6 +17,7 @@ export class Level {
         this.WIDTH = width;
         this.startPos = [0,0];
         this.endPos = [0,0];
+        this.entities = [];
 
         this.map = new Array();
         for (let i = 0; i < this.HEIGHT; i++) {
@@ -48,7 +51,10 @@ export class Level {
             }
         }
 
-    this.map[posY][posX] = new DownStair();
+    // this.map[posY][posX] = new DownStair();
+    this.map[posY][posX] = new EmptyTile();
+    this.map[posY][posX] = new Dummy(this, posX, posY);
+    this.entities.push(this.map[posY][posX] as Entity);
     this.endPos = [posX, posY];
     }
 
