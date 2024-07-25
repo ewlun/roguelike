@@ -1,5 +1,5 @@
 {
-  "name": "vanilla-template",
+  "name": "roguelike",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -7,7 +7,8 @@
     "start": "farm",
     "build": "farm build",
     "preview": "farm preview",
-    "clean": "farm clean"
+    "clean": "farm clean",
+    "package": "python pack.py"
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.2",
