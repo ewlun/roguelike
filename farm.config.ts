@@ -6,5 +6,8 @@ export default defineConfig({
     output: {
       publicPath: "./"
     },
+    assets: {
+    include: ["png"]      
+    }
   },
 });

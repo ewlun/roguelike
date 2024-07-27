@@ -93,7 +93,6 @@ export class Player extends Entity {
     interact(tile: Tile): void {
         if(tile instanceof Entity) {
             tile.health -= this.attack - tile.defence; // assert attack > defence
-            console.log(`Attacked for ${this.attack - tile.defence} damage, it now has ${tile.health} health`, tile)
         }
     }
 }

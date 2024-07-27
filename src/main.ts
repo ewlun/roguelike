@@ -4,8 +4,10 @@ declare global {
     let game: Game;
 }
 
-game = new Game(60, 25);
+game = new Game(42, 25);
 
-game.drawLevel();
-
-document.addEventListener("keydown", (e) => game.handleInput(e))
+game.display.loadImages().then(() => {  
+    game.drawLevel();
+    
+    document.addEventListener("keydown", (e) => game.handleInput(e))
+})
