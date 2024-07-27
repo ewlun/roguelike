@@ -58,7 +58,7 @@ export class Level {
     while(monsters < 5) {
         let posX = Math.floor(this.game.random() * this.WIDTH);
         let posY = Math.floor(this.game.random() * this.HEIGHT);
-        if (this.map[posY][posX] instanceof Wall) continue
+        if (!(this.map[posY][posX] instanceof EmptyTile)) continue
         this.map[posY][posX] = new EmptyTile();
         this.map[posY][posX] = new Dummy(this, posX, posY);
         this.entities.push(this.map[posY][posX] as Entity);
