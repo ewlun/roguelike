@@ -51,11 +51,19 @@ export class Level {
             }
         }
 
-    // this.map[posY][posX] = new DownStair();
-    this.map[posY][posX] = new EmptyTile();
-    this.map[posY][posX] = new Dummy(this, posX, posY);
-    this.entities.push(this.map[posY][posX] as Entity);
+    this.map[posY][posX] = new DownStair();
     this.endPos = [posX, posY];
+    
+    let monsters = 0;
+    while(monsters < 5) {
+        let posX = Math.floor(this.game.random() * this.WIDTH);
+        let posY = Math.floor(this.game.random() * this.HEIGHT);
+        if (this.map[posY][posX] instanceof Wall) continue
+        this.map[posY][posX] = new EmptyTile();
+        this.map[posY][posX] = new Dummy(this, posX, posY);
+        this.entities.push(this.map[posY][posX] as Entity);
+        monsters++;
+    }
     }
 
     generateTestLevel(): void {

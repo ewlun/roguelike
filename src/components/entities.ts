@@ -75,7 +75,7 @@ export class Entity extends Tile {
     update() {
         if(this.health <= 0) {
             this.level.map[this.yPos][this.xPos] = this.standingOn;
-            this.level.entities.splice(this.level.entities.indexOf(this));
+            this.level.entities.splice(this.level.entities.indexOf(this), 1);
         }
     }
 }
