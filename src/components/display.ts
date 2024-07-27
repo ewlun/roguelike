@@ -32,14 +32,14 @@ export class Display {
 
     async loadImages() {
         return new Promise<void>(resolve => {
-            let image = new Image();
+            let image = document.querySelector('#spriteSheet') as HTMLImageElement;
             image.onload = () => {
                 createImageBitmap(image, 0, 0, 256, 256)!
                 .then(spriteSheet => {
                     this.spriteSheet = spriteSheet;
                     resolve();
                 })};
-            image.src = "/assets/cp437_16x16.png";
+            image.src = image.src === undefined ? "/assets/cp437_16x16.png" : image.src;
         });
     }
 
